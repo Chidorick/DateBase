@@ -29,13 +29,13 @@ CREATE TABLE IF NOT EXISTS `Place` (
 );
 DESCRIBE  Place;
 INSERT INTO Place(adress) VALUES
-('ы'),
-('ыы'),
-('ыыы'),
-('ыыыы'),
-('ыыыыы'),
-('ыыыыыы'),
-('вввввввв');
+('бульвар Гоголя'),
+('Балканская'),
+('Ленина'),
+('проезд Космонавтов'),
+('проезд Косиора'),
+('проезд Космонавтов'),
+('бульвар 1905 года');
 
 CREATE TABLE IF NOT EXISTS `Worker` (
   `ID_Worker` INT NOT NULL AUTO_INCREMENT,
