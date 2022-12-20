@@ -34,7 +34,7 @@ INSERT INTO Place(adress) VALUES
 ('Ленина'),
 ('проезд Космонавтов'),
 ('проезд Косиора'),
-('проезд Космонавтов'),
+('проезд Пушкина'),
 ('бульвар 1905 года');
 
 CREATE TABLE IF NOT EXISTS `Worker` (
@@ -44,7 +44,6 @@ CREATE TABLE IF NOT EXISTS `Worker` (
   `Role` VARCHAR(45) NOT NULL,
   `Place_ID_place` INT NOT NULL,
   PRIMARY KEY (`ID_Worker`, `Place_ID_place`),
-  INDEX `fk_Worker_Place1_idx` (`Place_ID_place`) VISIBLE,
   FOREIGN KEY (`Place_ID_place`) REFERENCES `Place` (`ID_place`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 DESCRIBE  Worker;
@@ -65,8 +64,6 @@ CREATE TABLE IF NOT EXISTS `Order` (
   `Client_ID_client` INT NOT NULL,
   `Worker_ID_Worker` INT NOT NULL,
   PRIMARY KEY (`ID_Order`, `Worker_ID_Worker`, `Client_ID_client`),
-  INDEX `fk_Order_Client_idx` (`Client_ID_client`) VISIBLE,
-  INDEX `fk_Order_Worker1_idx` (`Worker_ID_Worker`) VISIBLE,
     FOREIGN KEY (`Client_ID_client`) REFERENCES `Client` (`ID_client`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (`Worker_ID_Worker`) REFERENCES `Worker` (`ID_Worker`) ON DELETE NO ACTION ON UPDATE NO ACTION);
 DESCRIBE `Order`;
