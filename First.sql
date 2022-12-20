@@ -50,11 +50,11 @@ DESCRIBE  Worker;
 INSERT INTO Worker(`Name`, Salary, `Role`, Place_ID_place) VALUES
 ('Павлов Генадий Сергеевич','25000','tailor',2),
 ('Чалов Пётр Фёдорович','25000','tailor',3),
-('Куликов Арсений Семёнович','25000','tailor',4),
+('Куликов Арсений Семёнович','26000','tailor',4),
 ('Воров Кирилл Алексеевич','25000','tailor',5),
 ('Новикова Алёна Ильинична','40000','manager',1),
-('Дуров Василий Евгеньевич','25000','tailor',6),
-('Цукатов Николай Дмитриевич','25000','tailor',7);
+('Куплинов Василий Евгеньевич','26000','tailor',6),
+('Цукатов Николай Дмитриевич','26000','tailor',7);
 
 CREATE TABLE IF NOT EXISTS `Order` (
   `ID_Order` INT NOT NULL AUTO_INCREMENT,
@@ -95,3 +95,89 @@ INSERT INTO `Product` (material, Order_ID_Order, Order_Worker_ID_Worker, Order_C
 ('silk',7,7,1);
 
 SELECT * FROM `Product`;
+SELECT * FROM `Order` WHERE Cost=9000;
+SELECT * FROM `Order` WHERE Cost>4000;
+SELECT * FROM `Order` WHERE Cost<7000;
+SELECT * FROM `Order` WHERE Cost>=4000;
+SELECT * FROM `Order` WHERE Cost<=7000;
+SELECT * FROM `Order` WHERE Cost!=9000;
+SELECT * FROM `Order` WHERE Cost IN (4000, 7000);
+SELECT * FROM `Order` WHERE Cost BETWEEN 4000 AND 7000;
+SELECT * FROM `Order` WHERE Cost NOT IN (4000, 7000);
+SELECT * FROM Worker WHERE `Name` NOT LIKE ('Ку%');
+SELECT * FROM Worker WHERE `Name` LIKE ('Ку%');
+
+SELECT * FROM `Order` WHERE ID_Order = 1;
+UPDATE `Order` SET Cost = 25000  WHERE ID_Order = 1;
+SELECT * FROM `Order` WHERE ID_Order = 1;
+
+SELECT ID_Order, Cost, ID_Worker
+FROM `Order`
+INNER JOIN Worker --Соединяет две разные таблицы, по значению ниже
+ON `Order`.Cost = Worker.Salary;
+
+SELECT * FROM `Order`;
+DELETE FROM `Order` WHERE ID_employee = 7;
+SELECT * FROM `Order`;
+
+SELECT `Name` FROM (SELECT * FROM Worker WHERE `Name` LIKE ('Ку%')) AS Sort
+WHERE Salary > 25000;
+--вызов информации о заказе
+CALL print_info(1);
+DROP PROCEDURE print_info;
+-- обновление
+CALL update_exp(1, 5000);
+SELECT * FROM `Order`;
+DROP PROCEDURE update_exp;
+-- поиск
+CALL search_info(40000, 'manager');
+SELECT * FROM Worker;
+DROP PROCEDURE search_info;
+
+-- функции
+SELECT sum_Salary(2,3) FROM Worker ORDER BY ID_Worker LIMIT 1;
+DROP FUNCTION sum_Salary;
+
+--дедлайны
+SELECT status_app(2) FROM `Order` ORDER BY ID_Order LIMIT 1;
+DROP FUNCTION status_app;
+
+--надбавка
+SELECT allowance(1,20) FROM Worker ORDER BY ID_Worker LIMIT 1;
+DROP FUNCTION allowance;
+
+-- триггеры
+UPDATE Worker
+SET Salary = 1
+WHERE ID_Worker = 1;
+DROP TRIGGER min_Salary;
+
+--проверка номера
+UPDATE Client
+SET `Number` = '43'
+WHERE ID_client = 1;
+DROP TRIGGER number_check;
+
+--проверка адресса
+UPDATE Place
+SET adress = ''
+WHERE ID_place = 1;
+DROP TRIGGER company_name_check;
+
+-- SELECT * FROM `architectural company`;
+-- SELECT * FROM `Order` WHERE experience=1;
+-- SELECT * FROM `Order` WHERE experience>3;
+-- SELECT * FROM `Order` WHERE experience<4;
+-- SELECT * FROM `Order` WHERE experience>=5;
+-- SELECT * FROM `Order` WHERE experience<=5;
+-- SELECT * FROM `Order` WHERE experience!=1;
+-- SELECT * FROM `Order` WHERE experience IS NOT NULL;
+-- SELECT * FROM `Order` WHERE experience IS NULL;
+-- SELECT * FROM `Order` WHERE experience BETWEEN 1 AND 3;
+-- SELECT * FROM `Order` WHERE experience IN (1, 3);
+-- SELECT * FROM `Order` WHERE experience NOT IN (1, 3);
+-- SELECT * FROM `Order` WHERE FIO LIKE ('Ика%');
+-- SELECT * FROM `Order` WHERE FIO NOT LIKE ('Ика%');
+-- SELECT * FROM customer WHERE ID_customer = 1;
+-- UPDATE customer SET budget = 9000  WHERE ID_customer = 1;
+-- SELECT * FROM customer WHERE ID_customer = 1;
