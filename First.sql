@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `Client` (
 );
 DESCRIBE  Client;
 INSERT INTO Client(`Name`, `Number`) VALUES
-('Чумиков Дмитрий Александрович','+79219292922'),
+('Баранов Денис Ильич','+79219292922'),
 ('Павлов Генадий Сергеевич','+79219292921'),
 ('Чалов Пётр Фёдорович','+79219292923'),
 ('Куликов Арсений Семёнович','+79219292924'),
@@ -110,14 +110,14 @@ SELECT * FROM Worker WHERE `Name` LIKE ('Ку%');
 SELECT * FROM `Order` WHERE ID_Order = 1;
 UPDATE `Order` SET Cost = 25000  WHERE ID_Order = 1;
 SELECT * FROM `Order` WHERE ID_Order = 1;
-
+--Соединяет две разные таблицы, по значению ниже
 SELECT ID_Order, Cost, ID_Worker
 FROM `Order`
-INNER JOIN Worker --Соединяет две разные таблицы, по значению ниже
+INNER JOIN Worker
 ON `Order`.Cost = Worker.Salary;
 
 SELECT * FROM `Order`;
-DELETE FROM `Order` WHERE ID_employee = 7;
+DELETE FROM `Order` WHERE ID = 7;
 SELECT * FROM `Order`;
 
 SELECT `Name` FROM (SELECT * FROM Worker WHERE `Name` LIKE ('Ку%')) AS Sort
@@ -162,22 +162,4 @@ DROP TRIGGER number_check;
 UPDATE Place
 SET adress = ''
 WHERE ID_place = 1;
-DROP TRIGGER company_name_check;
-
--- SELECT * FROM `architectural company`;
--- SELECT * FROM `Order` WHERE experience=1;
--- SELECT * FROM `Order` WHERE experience>3;
--- SELECT * FROM `Order` WHERE experience<4;
--- SELECT * FROM `Order` WHERE experience>=5;
--- SELECT * FROM `Order` WHERE experience<=5;
--- SELECT * FROM `Order` WHERE experience!=1;
--- SELECT * FROM `Order` WHERE experience IS NOT NULL;
--- SELECT * FROM `Order` WHERE experience IS NULL;
--- SELECT * FROM `Order` WHERE experience BETWEEN 1 AND 3;
--- SELECT * FROM `Order` WHERE experience IN (1, 3);
--- SELECT * FROM `Order` WHERE experience NOT IN (1, 3);
--- SELECT * FROM `Order` WHERE FIO LIKE ('Ика%');
--- SELECT * FROM `Order` WHERE FIO NOT LIKE ('Ика%');
--- SELECT * FROM customer WHERE ID_customer = 1;
--- UPDATE customer SET budget = 9000  WHERE ID_customer = 1;
--- SELECT * FROM customer WHERE ID_customer = 1;
+DROP TRIGGER Place_check;
